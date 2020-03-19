@@ -2,9 +2,10 @@
 // src/User.php
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity 
  * @ORM\Table(name="users")
  */
 class User
@@ -35,6 +36,34 @@ class User
      */
     protected $assignedBugs;
 
-    // .. (other code)
-}
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function __construct()
+    {
+        $this->reportedBugs = new ArrayCollection();
+        $this->assignedBugs = new ArrayCollection();
+    }
+
+    public function addReportedBug(Bug $bug)
+    {
+        $this->reportedBugs[] = $bug;
+    }
+
+    public function assignedToBug(Bug $bug)
+    {
+        $this->assignedBugs[] = $bug;
+    }
+}

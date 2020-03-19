@@ -41,7 +41,7 @@ final class Versions
   'symfony/polyfill-php73' => 'v1.14.0@5e66a0fa1070bf46bec4bea7962d285108edd675',
   'symfony/service-contracts' => 'v2.0.1@144c5e51266b281231e947b51223ba14acf1a749',
   'symfony/yaml' => 'v2.8.52@02c1859112aa779d9ab394ae4f3381911d84052b',
-  '__root__' => 'No version set (parsed as 1.0.0)@',
+  '__root__' => 'dev-master@937f0c04108a5894bb479263427c1436993f6a12',
 );
 
     private function __construct()

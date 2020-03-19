@@ -2,14 +2,15 @@
 // src/Bug.php
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity 
+ * @ORM\Entity(repositoryClass="BugRepository")
  * @ORM\Table(name="bugs")
  */
 class Bug
 {
-    /**
+      /**
      * @ORM\Id 
      * @ORM\Column(type="integer") 
      * @ORM\GeneratedValue
@@ -45,64 +46,76 @@ class Bug
      * @ORM\ManyToMany(targetEntity="Product")
      */
     protected $products;
-
-    public function __construct(){
-        $this->products = new ArrayCollection();
-    }
-
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getDescription(){
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function setDescription($description){
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
 
-    public function getStatus(){
-        return $this->status;
+    public function setCreated(DateTime $created)
+    {
+        $this->created = $created;
     }
 
-    public function setStatus($status){
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    public function setStatus($status)
+    {
         $this->status = $status;
     }
 
-    public function getEngineer(){
-        return $this->engineer;
+    public function getStatus()
+    {
+        return $this->status;
     }
 
-    public function setEngineer($engineer){
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
+    public function assignToProduct(Product $product)
+    {
+        $this->products[] = $product;
+    }
+
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    public function setEngineer(User $engineer)
+    {
         $engineer->assignedToBug($this);
         $this->engineer = $engineer;
     }
 
-    public function getReport(){
-        return $this->reporter;
-    }
-
-    public function setReport($reporter){
+    public function setReporter(User $reporter)
+    {
         $reporter->addReportedBug($this);
         $this->reporter = $reporter;
     }
 
-    public function getCreated(){
-        return $this->created;
-    }
-
-    public function setCreated(DateTime $created){
-        $this->created = $created;
-    }
-
-    public function getProduct(){
-        return $this->products;
-    }
-
-    public function assignToProduct($product)
+    public function getEngineer()
     {
-        $this->products[] = $product;
+        return $this->engineer;
+    }
+
+    public function getReporter()
+    {
+        return $this->reporter;
     }
 
     public function close()

@@ -17,9 +17,17 @@ $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__."/src"), $i
 
 // database configuration parameters
 $conn = array(
-    'driver' => 'pdo_sqlite',
-    'path' => __DIR__ . '/db.sqlite',
+    'host' => 'localhost',
+    'port' => '3306',
+    'user' => 'root',
+    'password' => '',
+    'dbname' => 'mvc',
+    'charset' => 'UTF8',
+    'driver' => 'pdo_mysql',
+    'path' => __DIR__ . '/db.sql',
 );
+
+$conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
 
 // obtaining the entity manager
 $entityManager = EntityManager::create($conn, $config);
